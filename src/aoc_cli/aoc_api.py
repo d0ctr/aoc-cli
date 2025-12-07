@@ -54,26 +54,26 @@ def pull_task(year, day, path, part_2=False, session=None):
     articles = soup.find_all('article')
     if not articles or len(articles) < 1:
         raise ValueError('No <article> tags found in the response')
+    if len(articles) == 1 and part_2:
+        raise ValueError('Only single <article> tag was found')
 
-    if len(articles) > 1 and part_2:
-        task_2 = to_md(str(articles[1]))
-
-        part_2_path = os.path.join(path, 'part_2')
-        os.makedirs(part_2_path, exist_ok=True)
-
-        with open(os.path.join(part_2_path, 'README.md'), 'w', encoding='utf-8') as f:
-            f.write(task_2)
+    if part_2:
+        task = to_md(str(articles[1]))
     else:
-        task_1 = to_md(str(articles[0]))
+        task = to_md(str(articles[0]))
 
-        with open(os.path.join(path, 'README.md'), 'w', encoding='utf-8') as f:
-            f.write(task_1)
+    with open(os.path.join(path, 'README.md'), 'w', encoding='utf-8') as f:
+        f.write(task)
 
-        test = articles[0].find('pre')
-        if test:
-            test_text = test.get_text()
-            with open(os.path.join(path, 'test'), 'w', encoding='utf-8') as f:
-                f.write(test_text)
+    if part_2:
+        return
+
+    test = articles[0].find('pre')
+    if test is None or len(test) == 0:
+        return
+    test_text = test.get_text()
+    with open(os.path.join(path, 'test'), 'w', encoding='utf-8') as f:
+        f.write(test_text)
 
 
 def submit(year, day, answer, session, part_2=False):

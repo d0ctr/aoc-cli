@@ -63,7 +63,7 @@ def pull(
 
     aoc_api.pull_task(year, day, path, part_2=part_2, session=SESSION)
     if part_2:
-        print(os.path.abspath(os.path.join(path, 'part_2')))
+        print(os.path.abspath(path))
     else:
         print(os.path.abspath(path))
 
@@ -166,7 +166,7 @@ def submit(
             print('[bold yellow]*[/bold yellow]')
         else:
             print()
-            print(f'Run [italic]aoc-cli pull --year {year} --day {day} --path \'.\'[/italic]?')
+            print(f'Run [italic]aoc-cli pull --year {year} --day {day} --part-2 --path \'.\'[/italic]?')
             print('This will repull the same task in attempt to get part 2.', end=' ')
             proceed = input('Proceed? (Y/n) ')
             if not proceed.lower().startswith('n'):
