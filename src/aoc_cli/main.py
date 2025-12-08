@@ -166,11 +166,11 @@ def submit(
             print('[bold yellow]*[/bold yellow]')
         else:
             print()
-            print(f'Run [italic]aoc-cli pull --year {year} --day {day} --part-2 --path \'.\'[/italic]?')
+            print(f'Run [italic]aoc-cli pull --year {year} --day {day} --part-2 --path \'part_2\'[/italic]?')
             print('This will repull the same task in attempt to get part 2.', end=' ')
             proceed = input('Proceed? (Y/n) ')
             if not proceed.lower().startswith('n'):
-                pull(year=year, day=day, session=session, part_2=True, path='.')
+                pull(year=year, day=day, session=session, part_2=True, path='part_2')
 
 
 if __name__ == '__main__':
